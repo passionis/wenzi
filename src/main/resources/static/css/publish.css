@@ -1,0 +1,21 @@
+
+.mar-top{
+    margin-top: 20px;
+}
+.bodys {
+    background-color: #dadada;
+}
+
+.content {
+    margin: 30px;
+    background-color: white;
+}
+.left-content {
+    border-right: 1px solid #e5e5e5;
+}
+
+.submit {
+    font-size: 18px;
+    margin-bottom: 20px;
+    padding: 10px 25px;
+}

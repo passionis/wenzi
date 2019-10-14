@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+#\u81EA\u5B9A\u4E49\u914D\u7F6E\u6587\u4EF6
+github:
+  client_id: df63f61d85eee25089b8
+  client_secret: 66de6e43def08021ebaa5083e701d65f0f06d7d5
+  redirect_uri: http://localhost:8080/callback
+
+#\u70ED\u542F\u52A8
+spring:
+  datasource:
+    password: root
+    username: root
+    url: jdbc:mysql://127.0.0.1:3306/wenzi?serverTimezone=GMT
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.mysql.cj.jdbc.MysqlDataSource
+
+
+  devtools:
+    restart:
+      enabled: true
+
+#  \u5173\u95ED\u6A21\u677F\u5F15\u64CE\u7F13\u5B58
+#  thymeleaf:
+#    cache: false
+
+  freemarker:
+    template-loader-path: classpath:/templates/
+    cache: false
+
+mybatis-plus:
+  configuration:
+     map-underscore-to-camel-case: true
+  mapper-locations: classpath*:mapper/*.xml
+
+
+
+
+
