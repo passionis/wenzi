@@ -1,5 +1,6 @@
 package com.passion.demo.service;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.passion.demo.domain.Question;
 import com.passion.demo.mapper.QuestionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,14 +10,15 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
-public class PublishServiceImpl implements IPublishService {
+public class PublishServiceImpl extends ServiceImpl<QuestionMapper, Question> implements IPublishService {
+
     @Autowired
     QuestionMapper questionMapper;
 
 
     @Override
     public int insertQuestion(Question question) {
-        return  questionMapper.insert(question);
+        return questionMapper.insert(question);
     }
 
     @Override

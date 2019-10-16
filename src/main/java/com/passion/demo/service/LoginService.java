@@ -2,6 +2,8 @@ package com.passion.demo.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.passion.demo.domain.User;
 import com.passion.demo.dto.GitHubDto;
 import com.passion.demo.dto.GithubRequestBody;
@@ -15,7 +17,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @Service
-public class LoginService implements IGithubLogin {
+public class LoginService extends ServiceImpl<UserMapper, User> implements IGithubLogin {
 
     @Value("${github.client_id}")
     private String client_id;
@@ -70,7 +72,6 @@ public class LoginService implements IGithubLogin {
         try {
             Response response = client.newCall(request).execute();
             String string = response.body().string();
-            System.out.println(string);
             GitHubDto gitHubDto = JSON.parseObject(string, GitHubDto.class);
             return gitHubDto;
         } catch (IOException e) {
@@ -82,7 +83,6 @@ public class LoginService implements IGithubLogin {
     @Override
     public String insertOrUpdateUser(GitHubDto dto) {
         String token = UUID.randomUUID().toString();
-
         User entity = new User();
         entity.setId(dto.getId());
         entity.setAccountId(dto.getNode_id());
@@ -90,13 +90,8 @@ public class LoginService implements IGithubLogin {
         entity.setToken(token);
         entity.setGmtCreate(System.currentTimeMillis());
         entity.setGmtModified(System.currentTimeMillis());
-
-        User user = userMapper.selectById(dto.getId());
-        if (user != null) {
-            userMapper.update(entity, new UpdateWrapper<>());
-        } else {
-            userMapper.insert(entity);
-        }
+        entity.setAvatarUrl(dto.getAvatar_url());
+        saveOrUpdate(entity);
         return token;
     }
 }
