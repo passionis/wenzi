@@ -44,6 +44,10 @@ public class PublishController {
                              @RequestParam(value = "description", required = false) String description,
                              @RequestParam(value = "tag", required = false) String tag, HttpServletRequest request,
                              Model model) {
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
+
         User user = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -86,6 +90,6 @@ public class PublishController {
         question.setCreator(user.getId());
 
         publishService.insertQuestion(question);
-        return "publish";
+        return "redirect:/";
     }
 }

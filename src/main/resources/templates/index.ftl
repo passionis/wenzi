@@ -37,7 +37,13 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-                <#if  Session["user"]?exists>
+                <#if  Session["user"]??>
+                    <li>
+                        <a href="/publish">
+                            发布
+                        </a>
+                    </li>
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
