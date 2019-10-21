@@ -2,11 +2,13 @@ package com.passion.demo.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.passion.demo.domain.Question;
+import com.passion.demo.dto.QuestionDto;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 public interface IPublishService extends IService<Question> {
-    
+
     /**
      * 插入提问对象
      *
@@ -22,4 +24,11 @@ public interface IPublishService extends IService<Question> {
      * @return 是否login
      */
     boolean hasLogin(HttpServletRequest request);
+
+    /**
+     * 获取所有的提问数据
+     * @return
+     */
+    List<QuestionDto> getQuestion();
+
 }

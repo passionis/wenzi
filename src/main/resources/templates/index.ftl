@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="zh-CN">
+<html xmlns:th="http://www.thymeleaf.org" lang="zh-CN">
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -7,6 +7,8 @@
 
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/publish.css">
+
     <script src="js/bootstrap.js"></script>
 
 </head>
@@ -57,17 +59,60 @@
                             <li><a href="#">退出登陆</a></li>
                         </ul>
                     </li>
+
                 <#else >
-                      <li>
-                          <a href=" https://github.com/login/oauth/authorize?client_id=df63f61d85eee25089b8&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
-                              登录
-                          </a>
-                      </li>
+                    <li>
+                        <a href=" https://github.com/login/oauth/authorize?client_id=df63f61d85eee25089b8&redirect_uri=http://localhost:8080/callback&scope=user&state=1">
+                            登录
+                        </a>
+                    </li>
                 </#if>
             </ul>
         </div>
     </div>
 </nav>
+
+<div class="container-fluid content">
+    <div class="row">
+        <#--发起-->
+        <div class="col-md-9 col-xs-12 left-content">
+            <h4>
+                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+                发起
+            </h4>
+            <hr>
+
+            <#list questions as question >
+                <#if question??>
+                    <div class="media">
+                        <div class="media-left">
+                            <a href="#">
+                                <img class="media-object item_image"
+                                     src="${question.user.avatarUrl}">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <h4 class="media-heading item_title">${question.title}</h4>
+                            <span class="item_desc">发起了问题 • ${question.likeCount} 人关注 • ${question.commentCount} 个回复 • ${question.viewCount}次浏览 • ${question.lastTime}小时前</span>
+                        </div>
+                    </div>
+                </#if>
+            </#list>
+
+
+        </div>
+        <#--问题指南-->
+        <div class="col-md-3 col-xs-12 mar-top">
+            <h4>
+                <strong>
+                    热门话题
+                </strong>
+            </h4>
+
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 

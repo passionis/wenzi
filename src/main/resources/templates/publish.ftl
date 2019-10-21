@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">蚊子社区</a>
+            <a class="navbar-brand" href="/">蚊子社区</a>
         </div>
 
 
