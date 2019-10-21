@@ -28,7 +28,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">蚊子社区</a>
+            <a class="navbar-brand" href="/">蚊子社区</a>
         </div>
 
 
@@ -44,6 +44,11 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <#if  Session["user"]?exists>
+                    <li>
+                        <a href="#">
+                            发布
+                        </a>
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">
@@ -85,7 +90,8 @@
                 <div class="form-group">
                     <div class="col-md-10 col-xs-10">
                         <label for="title">问题标题（简单扼要）:</label>
-                        <input type="text" class="form-control" id="title" placeholder="问题标题" name="title">
+                        <input type="text" class="form-control" id="title" placeholder="问题标题"
+                               name="title"  <#if title??> value="${title}"</#if>>
                     </div>
 
                     <div class="col-md-2 col-xs-2 dropdown">
@@ -109,7 +115,11 @@
                     <div class="col-md-10 col-xs-10 mar-top">
                         <label for="title">问题补充 (必填，请参照右侧提示):</label>
                         <textarea class="form-control" rows="6" id="des" name="description"
-                                  placeholder="问题描述"></textarea>
+                                  placeholder="问题描述">
+                            <#if description??>
+                                ${description}
+                            </#if>
+                        </textarea>
                     </div>
                 </div>
 
@@ -122,7 +132,10 @@
                 <div class="form-group">
                     <div class="col-md-6 mar-top">
                         <label for="add">添加标签：</label>
-                        <input type="text" class="form-control" id="add" name="tag" placeholder="创建搜索条件按，分割">
+                        <input type="text" class="form-control"<#if tag??>
+                           value="${tag}"
+                        </#if>
+                               id="add" name="tag" placeholder="创建搜索条件按，分割">
                     </div>
                 </div>
 

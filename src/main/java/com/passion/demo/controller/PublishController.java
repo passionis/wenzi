@@ -44,6 +44,10 @@ public class PublishController {
                              @RequestParam(value = "description", required = false) String description,
                              @RequestParam(value = "tag", required = false) String tag, HttpServletRequest request,
                              Model model) {
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
+
         User user = null;
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -78,14 +82,14 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(System.currentTimeMillis());
-        question.setComment_count(0);
-        question.setLike_count(0);
-        question.setView_count(0);
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(System.currentTimeMillis());
+        question.setCommentCount(0);
+        question.setLikeCount(0);
+        question.setViewCount(0);
         question.setCreator(user.getId());
 
         publishService.insertQuestion(question);
-        return "publish";
+        return "redirect:/";
     }
 }
