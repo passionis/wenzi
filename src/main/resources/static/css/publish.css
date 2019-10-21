@@ -19,3 +19,21 @@
     margin-bottom: 20px;
     padding: 10px 25px;
 }
+
+.item_image {
+    width: 40px;
+    height: 40px;
+}
+
+
+.item_title{
+    color: #333333;
+}
+
+.item_desc{
+    font-size: 12px;
+    font-weight: normal;
+    color: #999;
+}
+
+

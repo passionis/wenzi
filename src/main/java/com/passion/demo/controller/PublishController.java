@@ -78,11 +78,11 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        question.setGmt_create(System.currentTimeMillis());
-        question.setGmt_modified(System.currentTimeMillis());
-        question.setComment_count(0);
-        question.setLike_count(0);
-        question.setView_count(0);
+        question.setGmtCreate(System.currentTimeMillis());
+        question.setGmtModified(System.currentTimeMillis());
+        question.setCommentCount(0);
+        question.setLikeCount(0);
+        question.setViewCount(0);
         question.setCreator(user.getId());
 
         publishService.insertQuestion(question);

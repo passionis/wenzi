@@ -2,4 +2,46 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.passion.demo.mapper.QuestionMapper">
 
+    <resultMap id="questionAndUrl" type="com.passion.demo.dto.QuestionDto">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="creator" property="creator"/>
+        <result column="comment_count" property="commentCount"/>
+        <result column="view_count" property="viewCount"/>
+        <result column="like_count" property="likeCount"/>
+        <result column="tag" property="tag"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+        <association property="user" javaType="com.passion.demo.domain.User">
+            <id column="id" property="id"/>
+            <result column="account_id" property="accountId"/>
+            <result column="name" property="name"/>
+            <result column="token" property="token"/>
+            <result column="gmt_create" property="gmtCreate"/>
+            <result column="gmt_modified" property="gmtModified"/>
+            <result column="avatar_url" property="avatarUrl"/>
+        </association>
+    </resultMap>
+
+    <select id="getQuestion" resultMap="questionAndUrl">
+        SELECT q.id,
+               q.title,
+               q.description,
+               q.creator,
+               q.comment_count,
+               q.view_count,
+               q.like_count,
+               q.tag,
+               q.gmt_create,
+               q.gmt_modified,
+               u.avatar_url,
+               u.name ,
+               u.account_id,
+               u.token
+        FROM question q
+                 LEFT JOIN user u
+                           ON q.creator = u.id
+        GROUP BY q.id
+    </select>
 </mapper>
