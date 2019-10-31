@@ -6,7 +6,6 @@ github:
   client_id: df63f61d85eee25089b8
   client_secret: 66de6e43def08021ebaa5083e701d65f0f06d7d5
   redirect_uri: http://localhost:8080/callback
-
 #\u70ED\u542F\u52A8
 spring:
   datasource:
@@ -15,7 +14,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/wenzi?serverTimezone=GMT
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mysql.cj.jdbc.MysqlDataSource
-
 
   devtools:
     restart:
@@ -28,6 +26,8 @@ spring:
   freemarker:
     template-loader-path: classpath:/templates/
     cache: false
+
+
 
 mybatis-plus:
   configuration:

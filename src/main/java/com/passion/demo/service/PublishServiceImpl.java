@@ -1,5 +1,6 @@
 package com.passion.demo.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.passion.demo.domain.Question;
 import com.passion.demo.dto.QuestionDto;
@@ -12,6 +13,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+/**
+ * @author passion
+ */
 @Service
 public class PublishServiceImpl extends ServiceImpl<QuestionMapper, Question> implements IPublishService {
     @Autowired
@@ -36,18 +40,24 @@ public class PublishServiceImpl extends ServiceImpl<QuestionMapper, Question> im
     }
 
     @Override
-    public List<QuestionDto> getQuestion() {
-
-        List<QuestionDto> questions = questionMapper.getQuestion();
+    public Page<QuestionDto> getQuestion(Page<QuestionDto> page) {
+        List<QuestionDto> questions = questionMapper.getQuestion(page);
         if (questions != null) {
             questions.forEach(dto -> {
                 Long gmtCreate = dto.getGmtCreate();
                 Duration duration = new Duration(gmtCreate, System.currentTimeMillis());
+                String str = "";
                 long standardHours = duration.getStandardHours();
-                dto.setLastTime(standardHours);
+                if (standardHours > 24) {
+                    long standardDays = duration.getStandardDays();
+                    str = standardDays + "天";
+                } else {
+                    str = standardHours + "小时";
+                }
+                dto.setLastTime(str);
             });
         }
-        return questions;
+        return page.setRecords(questions);
     }
 
 

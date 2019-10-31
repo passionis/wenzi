@@ -34,5 +34,5 @@ public class QuestionDto {
 
     private User user;
 
-    private long lastTime;
+    private String lastTime;
 }

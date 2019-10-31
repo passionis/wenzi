@@ -1,5 +1,9 @@
 package com.passion.demo.controller;
 
+import cn.hutool.log.Log;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.OrderItem;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.passion.demo.domain.User;
 import com.passion.demo.dto.QuestionDto;
 import com.passion.demo.mapper.UserMapper;
@@ -8,10 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -23,9 +28,33 @@ public class IndexController {
     PublishServiceImpl publishService;
 
 
-
     @GetMapping("/")
-    public String test(HttpServletRequest request, Model model) {
+    public String home(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    String token = cookie.getValue();
+                    User user = userMapper.selectByToken(token);
+                    if (user != null) {//已经登录
+                        request.getSession().setAttribute("user", user);
+                        return "redirect: main.html";
+                    }
+                    break;
+                }
+            }
+        }
+        return "page/login-2.html";
+    }
+
+    @ResponseBody
+    @GetMapping("/getquestions")
+    public String getquestions(HttpServletRequest request, Model model,
+                       @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                       @RequestParam(value = "size", required = false, defaultValue = "10") Integer size) {
+        Page<QuestionDto> dtoPage = new Page<>(page, size);
+        dtoPage.setOrders(OrderItem.descs("gmt_create"));
+
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
             for (Cookie cookie : cookies) {
@@ -39,8 +68,11 @@ public class IndexController {
                 }
             }
         }
-        List<QuestionDto> list = publishService.getQuestion();
-        model.addAttribute("questions",list);
+        Page<QuestionDto> list = publishService.getQuestion(dtoPage);
+        model.addAttribute("questions", list);
+        Log.get(this.getClass()).error(JSON.toJSONString(list));
+
         return "index";
     }
+
 }

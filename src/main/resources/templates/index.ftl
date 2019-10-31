@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/publish.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
 
+    <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.js"></script>
+
 
 </head>
 <body>
@@ -81,8 +84,10 @@
                 发起
             </h4>
             <hr>
-
-            <#list questions as question >
+            <span>
+                ${questions.getCurrent()}.....总数:${questions.getTotal()}
+            </span>
+            <#list questions.getRecords() as question >
                 <#if question??>
                     <div class="media">
                         <div class="media-left">
@@ -93,12 +98,13 @@
                         </div>
                         <div class="media-body">
                             <h4 class="media-heading item_title">${question.title}</h4>
-                            <span class="item_desc">发起了问题 • ${question.likeCount} 人关注 • ${question.commentCount} 个回复 • ${question.viewCount}次浏览 • ${question.lastTime}小时前</span>
+                            <span class="item_desc">发起了问题 • ${question.likeCount} 人关注 • ${question.commentCount} 个回复 • ${question.viewCount}次浏览 • ${question.lastTime}前</span>
                         </div>
                     </div>
+
                 </#if>
             </#list>
-
+            <div id="page_div"></div>
 
         </div>
         <#--问题指南-->
@@ -113,6 +119,48 @@
     </div>
 </div>
 
+<script src="layui/layui.js"></script>
+<script>
+    $(function () {
+        var url = "/getquestions";
+        var currentPage = 2;
+        var size = 10;
+        var data = {
+            "page":currentPage,
+            "size": size
+        };
+        $.get(url, data, function (data, status) {
+            console.error("41111");
+            console.error(data)
+        });
+    });
+
+    //
+    //
+    // layui.use('laypage', function () {
+    //     var laypage = layui.laypage;
+    //     laypage.render({
+    //         elem: 'page_div',
+    //         count: 20,
+    //         limit: 10,
+    //         limits: [10, 20, 30, 40, 50],
+    //         groups: 5,
+    //         first: "首页",
+    //         last: "尾页",
+    //         layout: ['first', 'prev', 'last', 'page', 'next', 'limit', 'count'],
+    //         jump: function (obj, first) {
+    //             //obj包含了当前分页的所有参数，比如：
+    //             console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+    //             console.log(obj.limit); //得到每页显示的条数
+    //
+    //             //首次不执行
+    //             if (!first) {
+    //                 //do something
+    //             }
+    //         }
+    //     });
+    // });
+</script>
 </body>
 </html>
 
