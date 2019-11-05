@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/login.css">
     <script src="js/jquery.js"></script>
     <script src="../lib/layui-v2.5.4/layui.js" charset="utf-8"></script>
-    <script src="../js/login/login.js"></script>
+
 </head>
 <body>
 <div id="container">
@@ -24,23 +24,45 @@
         </div>
         <form class="layui-form" action="/login" method="post">
             <div>
-<!--                required   lay-verify="required"-->
+                <!--                required   lay-verify="required"-->
                 <i class="layui-icon layui-icon-username admin-icon"></i>
                 <input type="text" name="username" placeholder="请输入用户名"
-                       autocomplete="off"   class="layui-input admin-input admin-input-username" value="" id="account">
+                       autocomplete="off" maxlength="11" class="layui-input admin-input admin-input-username"
+                        <#if username??>
+                            value="${username}"
+                        </#if>
+                       id="account">
             </div>
             <div>
                 <i class="layui-icon layui-icon-password admin-icon"></i>
-                <input type="password" name="password"  placeholder="请输入密码"
+                <input type="password" name="password" placeholder="请输入密码"
                        autocomplete="off" class="layui-input admin-input" value="" id="password">
             </div>
             <!--            <div>-->
             <!--                <input type="text" name="captcha" placeholder="请输入验证码" autocomplete="off" class="layui-input admin-input admin-input-verify" value="xszg">-->
             <!--                <img class="admin-captcha" width="90" height="30" src="../images/captcha.jpg">-->
             <!--            </div>-->
-            <button id="loginBtn" class="layui-btn admin-button" lay-submit lay-filter="login">登 陆</button>
+            <button type="button" id="loginBtn" class="layui-btn admin-button" lay-submit lay-filter="login">登 陆
+            </button>
         </form>
+
     </div>
 </div>
+
+<script type="text/javascript">
+    var data = {};
+    <#if error??>
+    data.msg = '${error}';
+    </#if>
+
+    <#if username??>
+    data.username = '${username}'
+    </#if>
+
+</script>
+
+<script src="../js/login/login.js"></script>
 </body>
+
 </html>
+

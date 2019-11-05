@@ -15,16 +15,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mysql.cj.jdbc.MysqlDataSource
 
+#  mvc:
+#    static-path-pattern: /static/**
+#    view:
+#      prefix: /view/
+#      suffix: .ftl
   devtools:
     restart:
       enabled: true
 
-#  \u5173\u95ED\u6A21\u677F\u5F15\u64CE\u7F13\u5B58
-#  thymeleaf:
-#    cache: false
 
   freemarker:
-    template-loader-path: classpath:/templates/
+    template-loader-path: classpath:/static/page/, classpath:/templates/
     cache: false
 
 

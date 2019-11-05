@@ -30,4 +30,13 @@ public interface IGithubLogin extends IService<User> {
      * @return 插入数据的token
      */
     String insertOrUpdateUser(GitHubDto dto);
+
+
+    /**
+     * 根据用户名和密码 查询用户信息
+     * @param username 用户名
+     * @param password 密码
+     * @return user对象
+     */
+    User login(String username, String password);
 }

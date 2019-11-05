@@ -5,7 +5,20 @@
 
 
 <mapper namespace="com.passion.demo.mapper.UserMapper">
+    <sql id="user">
+
+    </sql>
+
     <select id="selectByToken" resultType="com.passion.demo.domain.User">
-        select * from user where token = #{token}
+        select *
+        from user
+        where token = #{token}
+    </select>
+    <select id="selectByUserName" resultType="com.passion.demo.domain.User">
+        SELECT *
+        FROM `user` u
+        WHERE u.NAME = #{username}
+          AND u.pwd = #{password}
+        limit 1
     </select>
 </mapper>

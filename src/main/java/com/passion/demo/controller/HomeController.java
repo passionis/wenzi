@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author passion
+ */
 @Controller
-public class IndexController {
+public class HomeController {
 
     @Autowired
     UserMapper userMapper;
@@ -27,24 +30,10 @@ public class IndexController {
     @Autowired
     PublishServiceImpl publishService;
 
+    @GetMapping("/main")
+    public String home() {
 
-    @GetMapping("/")
-    public String home(HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    User user = userMapper.selectByToken(token);
-                    if (user != null) {//已经登录
-                        request.getSession().setAttribute("user", user);
-                        return "redirect: main.html";
-                    }
-                    break;
-                }
-            }
-        }
-        return "page/login-2.html";
+        return "main.html";
     }
 
     @ResponseBody

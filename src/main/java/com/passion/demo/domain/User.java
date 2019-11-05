@@ -52,5 +52,10 @@ public class User {
      */
     private String avatarUrl;
 
+    /**
+     * 密码
+     */
+    private String pwd;
+
 
 }

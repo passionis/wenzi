@@ -1,8 +1,6 @@
 package com.passion.demo.service;
 
 import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.passion.demo.domain.User;
 import com.passion.demo.dto.GitHubDto;
@@ -93,5 +91,10 @@ public class LoginService extends ServiceImpl<UserMapper, User> implements IGith
         entity.setAvatarUrl(dto.getAvatar_url());
         saveOrUpdate(entity);
         return token;
+    }
+
+    @Override
+    public User login(String username, String password) {
+        return baseMapper.selectByUserName(username, password);
     }
 }
